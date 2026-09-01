@@ -36,7 +36,9 @@ from project3.routes.teachers_routes import teachers_routes       #JWT Manager i
 from project3.routes.subject_routes import subject_bp
 
 app=Flask(__name__)
-app.config["JWT_SECRET_KEY"]=os.getenv(JWT_SECRET_KEY")       #USED TO CREATE JWT TOKENS
+app.config["JWT_SECRET_KEY"]=os.getenv("JWT_SECRET_KEY")       #USED TO CREATE JWT TOKENS
+app.config["JWT_ACCESS_TOKEN_EXPIRES"]=900
+app.config["JWT_REFRESH_TOKEN_EXPIRES"]=1000
 app.config["SQLALCHEMY_DATABASE_URI"]="sqlite:///school.db"   # IT TELL SQLALCHEMY DATABASE ADDRESS
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"]=False            #DIABLE UNNECESSARY CHNAGE TRACKING
 db.init_app(app)                                   #CONNECTS IT TO FLASK AND  ITS DB SETTING(CONFIGURATIONS)

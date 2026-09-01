@@ -13,7 +13,7 @@ class Teacher(db.Model):
     email=db.Column(db.String(100),unique=True,nullable=False)
     password=db.Column(db.String(100),nullable=False)
     subjects=db.relationship('Subject',backref='teacher',lazy=True,cascade="all, delete")  # one teacher can access all *his* subjects,lazy=dont load subjects unless teacher.subject
-                                                                                           #backref creates reverse relationship also means without it
+    role=db.Column(db.String(20),nullable=False,default="teacher")                                                                                     #backref creates reverse relationship also means without it
                                                                                            #teacher.subject works but subject.teacher wont work,casade=if teacher is deleted, delete all his subjects too
     def to_dict(self):
         return {                                     # Route calls to_dict method like object.to_dict() and that object is passed to self

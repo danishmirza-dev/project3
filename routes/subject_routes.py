@@ -4,6 +4,7 @@ from project3.services import subject_services
 from project3.utils.validation import validate_subject,validate_update_subjects
 subject_bp=Blueprint("subject_bp",__name__)
 @subject_bp.route("/",methods=["POST"])
+@jwt_required()
 def add():
     data=request.get_json()
     error=validate_subject(data)
@@ -14,6 +15,7 @@ def add():
         return jsonify(subject[0],subject[1])
     return jsonify(subject.to_dict()),201
 @subject_bp.route("/",methods=["GET"])
+@jwt_required()
 def showall():
     page=request.args.get("page",type=int)          #request.args contain all query paramaters in flask special obj similar like a dict {"page":"2","sort":"-name"},type=int covort str into int
     per_page=request.args.get("per_page",type=int)
@@ -30,6 +32,7 @@ def showall():
 
     return jsonify([subject.to_dict() for subject in subjects]),200     #if not paginated data
 @subject_bp.route("/<int:sid>",methods=["GET"])
+@jwt_required()
 def showbyid(sid):
 
     subject=subject_services.get_subject_by_id(sid)
